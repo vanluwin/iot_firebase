@@ -93,4 +93,3 @@ class uFirebase:
                 return response
             except:
                 print("erro")
-        
