@@ -30,8 +30,6 @@ class uFirebase:
         else:
             try:
                 url = self.firebase+path+'.json?auth='+self.auth
-                print (url, type(url))
-                print (myData)
                 response = urequests.put(url, data = json.dumps(myData))
                 print("try send")
             except:
@@ -96,8 +94,3 @@ class uFirebase:
             except:
                 print("erro")
         
-
-
-
-
-

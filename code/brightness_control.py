@@ -1,5 +1,4 @@
-import machine
-import time
+import time, math, machine
 
 # Definindo as portas que estão sendo utilizadas 
 led = machine.PWM(machine.Pin(2), freq=1000)

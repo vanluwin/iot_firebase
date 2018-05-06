@@ -4,7 +4,7 @@ import time
 led = machine.Pin(2, machine.Pin.OUT)
 
 while True:
-    led.low()
+    led.on()
     time.sleep(0.5)
-    led.high()
+    led.off()
     time.sleep(0.5)

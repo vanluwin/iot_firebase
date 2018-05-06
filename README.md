@@ -2,7 +2,7 @@
 
 ## MicroPython
 
-MicroPython é uma implementação enxuta e eficiente da linguagem de programção Python 3 que inclui um pequeno subconjunto da biblioteca padrão do Python e é otimizada para rodar em microcontroladores e ambientes restritos.
+MicroPython é uma implementação enxuta e eficiente da linguagem de programação Python 3 que inclui um pequeno subconjunto da biblioteca padrão do Python e é otimizada para rodar em microcontroladores e ambientes restritos.
 
 ### Instalação 
 
@@ -34,6 +34,39 @@ O jeito mais facil é utilizando o [esptool.py](https://github.com/espressif/esp
     ```bash
         screen /dev/ttyUSB0 115200
     ```
+
+4. Conectando a uma rede
+
+    Aqui existem duas opções:
+
+    * Adicionando uma função para se conectar a uma rede durante o boot, adicione a seguinte função ao script boot.py de seu ESP (**Adicione as informações de sua rede**):
+
+    ```python
+        def do_connect():
+            import network
+            w = network.WLAN(network.STA_IF)
+            if not w.isconnected():
+                print('connecting to network...')
+                w.active(True)
+                w.connect('<essid>', '<password>')
+                while not w.isconnected():
+                    pass
+            print('network config:', w.ifconfig())
+    ```
+
+    * Conectando "manualmente" utilizando o screen (**Adicione as informações de sua rede**):
+
+        ```bash
+            screen /dev/ttyUSB0 115200
+        ```
+
+        ```python
+            >>>import network
+            >>>w = network.WLAN(network.STA_IF)
+            >>>w.active(True)
+            >>>w.connect('<essid>', '<password>')
+            >>>w.ifconfig()
+        ```
 
 ## Ampy
 
@@ -78,7 +111,7 @@ Precisaremos de algumas informações do console para a configuração do dispos
     Executando o código no ESP:
 
     ```bash
-        ampy --port /serial/port run hello_wolrd.py
+        ampy -p /serial/port run hello_wolrd.py
     ```
 
 
@@ -89,10 +122,20 @@ Precisaremos de algumas informações do console para a configuração do dispos
     Executando o código no ESP:
 
     ```bash
-        ampy --port /serial/port run led_blink.py
+        ampy -p /serial/port run led_blink.py
     ```
 
-3. Publicando dados no :fire: **Firebase** :fire:
+3. Controle de brilho 
+
+    [Código](https://github.com/vanluwin/iot_firebase/blob/master/code/brightness_control.py)
+
+    Executando o código no ESP:
+
+    ```bash
+        ampy -p /serial/port run brightness_control.py
+    ```
+
+4. Publicando dados no :fire: **Firebase** :fire:
 
     Utilizaremos a biblioteca [uFirebase](https://github.com/TiagoGIM/ufirebaseESP8266) desenvolvida pelo [Tiago Hérique](https://github.com/TiagoGIM)
 
@@ -101,27 +144,17 @@ Precisaremos de algumas informações do console para a configuração do dispos
     Executando o código no ESP:
 
     ```bash
-        ampy --port /serial/port run fb_data.py
+        ampy -p /serial/port run fb_data.py
     ```
 
-4. Controle de brilho 
-
-    [Código](https://github.com/vanluwin/iot_firebase/blob/master/code/brightness_control.py)
-
-    Executando o código no ESP:
-
-    ```bash
-        ampy --port /serial/port run brightness_control.py
-    ```
-
-5. Publicando estados no Firebase:
+5. Publicando estados no :fire: **Firebase** :fire:
 
     [Código](https://github.com/vanluwin/iot_firebase/blob/master/code/pub_states.py)
 
     Executando o código no ESP:
 
     ```bash
-        ampy --port /serial/port run pub_states.py
+        ampy -p /serial/port run pub_states.py
     ```
     
 

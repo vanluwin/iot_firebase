@@ -3,7 +3,7 @@ import time, math, machine, uFirebase
 db = uFirebase.uFirebase('https://micro-py.firebaseio.com')
 
 # Caminho no banco de dados 
-path = '/states'
+path = 'states/'
 
 # Definindo as portas que estão sendo utilizadas 
 # Led
